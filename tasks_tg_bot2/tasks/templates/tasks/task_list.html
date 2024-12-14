@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin: 20px 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li span {
+            font-size: 1rem;
+        }
+
+        li a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        li a:hover {
+            color: #388E3C;
+        }
+
+        @media (max-width: 768px) {
+            li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            li span {
+                margin-bottom: 10px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            li a {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Список задач</h1>
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <span>
+                {{ task.text }}
+                {% if task.reminder_set %}
+                <br>
+                <small>(Когда: {{ task.reminder_time|date:"Y-m-d H:i" }})</small>
+                {% endif %}
+            </span>
+            <a href="{% url 'tasks:token_task_edit' task.id %}?token={{ token }}">Изменить</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
