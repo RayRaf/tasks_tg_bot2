@@ -7,16 +7,17 @@ services:
       - "6379:6379"
     command: redis-server --appendonly yes
 
+
   web:
     build: .
     command: uvicorn tasks_tg_bot2.asgi:application --host 0.0.0.0 --port 8000
-    environment:
-      - TELEGRAM_TOKEN=your_telegram_bot_token
+    env_file:
+      - .env
     volumes:
       - .:/app
       - ./database:/app/database
     ports:
-      - "8080:8000"  # Открываем внешний порт 8080, сопоставленный с внутренним портом 8000
+      - "8080:8000"
     depends_on:
       - redis
 
