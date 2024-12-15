@@ -2,8 +2,8 @@
 import os
 from celery import Celery
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myproject.settings')
-app = Celery('myproject')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tasks_tg_bot2.settings')
+app = Celery('tasks_tg_bot2')
 
 # Читает настройки из django settings
 app.config_from_object('django.conf:settings', namespace='CELERY')
