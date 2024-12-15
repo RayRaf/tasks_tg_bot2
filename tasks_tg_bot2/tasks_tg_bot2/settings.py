@@ -131,3 +131,15 @@ LOGIN_REDIRECT_URL = '/tasks/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+
+CELERY_BEAT_SCHEDULE = {
+    'send-notifications-every-minute': {
+        'task': 'tasks.tasks.send_notifications',
+        'schedule': 60.0,  # каждые 60 секунд
+    },
+}
+
